@@ -1,0 +1,74 @@
+<%-include('header.ejs')%>
+    
+<h2>문의 목록입니다.</h2>
+
+<table border="1">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>phone</th>
+        <th>email</th>
+        <th>content</th> 
+        <th>create_at</th> 
+        <th>modify_at</th> 
+        <th>status</th> 
+        <th>DONE</th>
+        <th>DELETE</th> 
+    </tr>
+    <% lists.forEach(function(item) { %>
+    <tr>
+        <td><%=item.id%></td>
+        <td><%=item.name%></td>
+        <td><%=item.phone%></td>
+        <td><%=item.email%></td>
+        <td><%=item.memo%></td>
+        <td><%=item.create_at%></td>
+        <td><%=item.modify_at%></td>
+        <td><%=item.status%></td>
+        <td>
+            <button type="button" onclick="updateContact(<%=item.id%>)">UPDATE</button>
+        </td>
+        <td>
+            <button type="button" onclick="deleteContact(<%=item.id%>)">DELETE</button>
+        </td>
+    </tr>
+    <% }) %>
+</table>
+
+<script>
+    function updateContact(contactId) {
+        // AJAX를 사용하여 PUT 요청 보내기
+        $.ajax({
+            url: `/api/contactUpdate/${contactId}`,
+            type: 'PUT',
+            success: function(response) {
+                // 업데이트 성공 시의 처리
+                alert('문의사항이 업데이트되었습니다.');
+                location.reload(); // 페이지 새로고침 또는 다른 업데이트 방식 선택
+            },
+            error: function(error) {
+                // 오류 처리
+                console.error('업데이트 오류:', error);
+            }
+        });
+    }
+
+    function deleteContact(contactId) {
+        // AJAX를 사용하여 DELETE 요청 보내기
+        $.ajax({
+            url: `/api/contactDelete/${contactId}`,
+            type: 'DELETE',
+            success: function(response) {
+                // 삭제 성공 시의 처리
+                alert('문의사항이 삭제되었습니다.');
+                location.reload(); // 페이지 새로고침 또는 다른 삭제 방식 선택
+            },
+            error: function(error) {
+                // 오류 처리
+                console.error('삭제 오류:', error);
+            }
+        });
+    }
+</script>
+
+<%-include('footer.ejs')%>

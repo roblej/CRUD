@@ -1,0 +1,18 @@
+<%-include('header.ejs')%>
+
+    <h1>문의 페이지입니다</h1>
+        <form action="/api/contact" method="post">
+            <ul>
+                <li>이름:<input type="text" name="name" required>   </li>
+                <li>연락처:<input type="text" name="phone" required>   </li>
+                <li>이메일:<input type="text" name="email" required>   </li>
+                <li>문의내용: <br>
+                    <textarea name="memo" cols="50" rows="10" required></textarea>
+                </li>
+                <button type="submit">문의하기</button>
+                
+            </ul>
+        </form>
+
+
+<%-include('footer.ejs')%>
